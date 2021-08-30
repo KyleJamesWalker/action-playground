@@ -35,6 +35,10 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: Install requirements
+        run: |
+          pip install -U yaml
+
       - name: Simple python script
         shell: python
         env:
