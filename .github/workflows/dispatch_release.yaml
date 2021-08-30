@@ -51,7 +51,7 @@ jobs:
 
           def is_container_image_name_here(node):
               """Check if this node contains a value to replace"""
-              return node.get('container', {}).get('image', {}).get('name'):
+              return 'name' in node.get('container', {}).get('image', {})
 
           r = yaml.safe_load("""---
           top-app-name-1:
