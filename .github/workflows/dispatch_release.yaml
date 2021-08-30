@@ -37,7 +37,7 @@ jobs:
 
       - name: Install requirements
         run: |
-          pip install -U yaml
+          pip install -U PyYAML
 
       - name: Simple python script
         shell: python
