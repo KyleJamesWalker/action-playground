@@ -1,3 +1,7 @@
+# Test the run with:
+#   gh workflow run dispatch_release.yaml --json << EOF
+#   {"app_name": "test-app", "tag": "v1.2.3"}
+#   EOF
 name: dispatch_release
 
 on:
@@ -13,6 +17,7 @@ on:
 
 jobs:
   python_execute:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout apps repository
         uses: actions/checkout@v2
