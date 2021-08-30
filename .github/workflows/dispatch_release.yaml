@@ -10,23 +10,25 @@ on:
         description: The semver image tag to use.
         required: true
 
-runs:
-  steps:
-    - name: Checkout apps repository
-      uses: actions/checkout@v2
 
-    - name: setup python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+jobs:
+  python_execute:
+    steps:
+      - name: Checkout apps repository
+        uses: actions/checkout@v2
 
-    - name: Update overlay with image [kustomize]
-      shell: python
-      env:
-        - name: APP_NAME
-          value: ${{ inputs.app_name }}
-        - name: TAG
-          value: ${{ inputs.tag }}
-      run: |
-        import os
-        print(f"Hello {os.environ[APP_NAME]}:{os.environ[TAG]}")
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Update overlay with image [kustomize]
+        shell: python
+        env:
+          - name: APP_NAME
+            value: ${{ inputs.app_name }}
+          - name: TAG
+            value: ${{ inputs.tag }}
+        run: |
+          import os
+          print(f"Hello {os.environ[APP_NAME]}:{os.environ[TAG]}")
