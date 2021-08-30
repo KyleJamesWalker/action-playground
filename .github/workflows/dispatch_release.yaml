@@ -1,3 +1,10 @@
+# This script tests the workflow dispatch, and also tests to see if you can use
+# python as a shell and just drop the contents directly into the run command,
+# with multiple lines.
+#
+# Note: This could also be done with a shell script, but I wanted to limit the
+# number of files required to see to understand the entire workflow.
+#
 # Test run with curl:
 #
 #  curl -XPOST \
