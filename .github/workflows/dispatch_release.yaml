@@ -27,11 +27,11 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Update overlay with image [kustomize]
+      - name: Simple python script
         shell: python
         env:
-          APP_NAME: ${{ inputs.app_name }}
-          TAG: ${{ inputs.tag }}
+          APP_NAME: ${{ github.event.inputs.app_name }}
+          TAG: ${{ github.event.inputs.tag }}
         run: |
           import os
           print(f"Hello {os.environ['APP_NAME']}:{os.environ['TAG']}")
