@@ -1,37 +1,55 @@
-# Test the run with:
+# Test run with curl:
+#
+#  curl -XPOST \
+#   -u $GITHUB_USER:$GITHUB_ACCESS_TOKEN \
+#   -H "Accept: application/vnd.github.v3+json" \
+#   -H "Content-Type: application/json" https://api.github.com/repos/KyleJamesWalker/action-playground/actions/workflows/dispatch_release.yaml/dispatches \
+#   --data '{"ref": "master", "inputs": {"app_name": "test-app", "tag": "v1.2.3"}}'
+#
+# Test the run with gh cli:
+#
 #   gh workflow run dispatch_release.yaml --json << EOF
 #   {"app_name": "test-app", "tag": "v1.2.3"}
 #   EOF
 name: dispatch_release
 
 on:
-  workflow_dispatch:
-    inputs:
-      app_name:
-        description: The name of the application.
-        required: true
-      tag:
-        description: The semver image tag to use.
-        required: true
+workflow_dispatch:
+  inputs:
+    app_name:
+      description: The name of the application.
+      required: true
+    tag:
+      description: The semver image tag to use.
+      required: true
 
 
 jobs:
-  python_execute:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout apps repository
-        uses: actions/checkout@v2
+python_execute:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout apps repository
+      uses: actions/checkout@v2
 
-      - name: setup python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
 
-      - name: Simple python script
-        shell: python
-        env:
-          APP_NAME: ${{ github.event.inputs.app_name }}
-          TAG: ${{ github.event.inputs.tag }}
-        run: |
-          import os
-          print(f"Hello {os.environ['APP_NAME']}:{os.environ['TAG']}")
+    - name: Simple python script
+      shell: python
+      env:
+        APP_NAME: ${{ github.event.inputs.app_name }}
+        TAG: ${{ github.event.inputs.tag }}
+      run: |
+        # Simple python script
+        import os
+        import yaml
+
+        r = yaml.loads("""---
+        name: Kyle Walker
+        foo: bar
+        """)
+
+        print(f"Hello {os.environ['APP_NAME']}:{os.environ['TAG']}")
+        print(r['name'], r['foo'])
