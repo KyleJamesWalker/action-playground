@@ -49,7 +49,7 @@ jobs:
           import os
           import yaml
 
-          r = yaml.loads("""---
+          r = yaml.safe_load("""---
           name: Kyle Walker
           foo: bar
           """)
