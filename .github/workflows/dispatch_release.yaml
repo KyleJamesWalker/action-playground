@@ -23,33 +23,32 @@ on:
         description: The semver image tag to use.
         required: true
 
-
 jobs:
-python_execute:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout apps repository
-      uses: actions/checkout@v2
+  python_execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout apps repository
+        uses: actions/checkout@v2
 
-    - name: setup python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
 
-    - name: Simple python script
-      shell: python
-      env:
-        APP_NAME: ${{ github.event.inputs.app_name }}
-        TAG: ${{ github.event.inputs.tag }}
-      run: |
-        # Simple python script
-        import os
-        import yaml
+      - name: Simple python script
+        shell: python
+        env:
+          APP_NAME: ${{ github.event.inputs.app_name }}
+          TAG: ${{ github.event.inputs.tag }}
+        run: |
+          # Simple python script
+          import os
+          import yaml
 
-        r = yaml.loads("""---
-        name: Kyle Walker
-        foo: bar
-        """)
+          r = yaml.loads("""---
+          name: Kyle Walker
+          foo: bar
+          """)
 
-        print(f"Hello {os.environ['APP_NAME']}:{os.environ['TAG']}")
-        print(r['name'], r['foo'])
+          print(f"Hello {os.environ['APP_NAME']}:{os.environ['TAG']}")
+          print(r['name'], r['foo'])
