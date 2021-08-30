@@ -34,4 +34,4 @@ jobs:
           TAG: ${{ inputs.tag }}
         run: |
           import os
-          print(f"Hello {os.environ[APP_NAME]}:{os.environ[TAG]}")
+          print(f"Hello {os.environ['APP_NAME']}:{os.environ['TAG']}")
