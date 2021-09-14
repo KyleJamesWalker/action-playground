@@ -19,7 +19,7 @@ jobs:
         run: echo ${{ github.workspace }}
 
       - name: Test docker
-        shell: docker run --rm -v '{0}':/run_cmd.sh alpine sh run_cmd.sh
+        shell: docker run --rm -v {0}:/run_cmd.sh alpine sh run_cmd.sh
         run: |
           echo "Hello World"
           ls -al
