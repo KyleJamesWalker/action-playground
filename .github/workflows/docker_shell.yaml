@@ -15,6 +15,9 @@ jobs:
       - name: Debug Event
         run: cat ${{ github.event_path }}
 
+      - name: Debug Workspace
+        run: echo ${{ github.workspace }}
+
       - name: Test docker
-        shell: docker run --rm -v ${{ github.workspace }}:/code alpine sh -c '{0}'
+        shell: docker run --rm -v "${{ github.workspace }}":/code alpine sh -c '{0}'
         run: echo "Hello World"; ls -al
