@@ -19,7 +19,7 @@ jobs:
         run: echo ${{ github.workspace }}
 
       - name: Test docker
-        shell: docker run --rm -v {0}:/run_cmd.sh -v ${{ github.workspace}}:/code alpine sh run_cmd.sh
+        shell: docker run --rm -v {0}:/run_cmd.sh -v $GITHUB_WORKSPACE:/code alpine sh run_cmd.sh
         run: |
           # Test if we can run multiple commands
           echo "Hello World"
