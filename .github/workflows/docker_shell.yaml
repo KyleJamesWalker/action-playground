@@ -14,10 +14,7 @@ jobs:
     steps:
 
       - name: Test docker
-        shell: docker run -v `pwd`:/code alpine
-        # with:
-        #   entrypoint: /opt/box/box
-        #   args: version
+        shell: docker run -v `pwd`:/code alpine sh -c '{0}'
         run: |
           echo "Hello World"
           ls -al
