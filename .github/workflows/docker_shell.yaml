@@ -1,0 +1,23 @@
+# This script is used to test running commands within a docker container
+#
+# Test the run with gh cli:
+#
+#   gh workflow run docker_shell
+name: docker_shell
+
+on:
+  workflow_dispatch:
+
+jobs:
+  docker_execute:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Test docker
+        uses: docker://alpine
+        # with:
+        #   entrypoint: /opt/box/box
+        #   args: version
+        run: |
+          echo "Hello World"
+          ls -al
