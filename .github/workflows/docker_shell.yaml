@@ -15,8 +15,10 @@ jobs:
       - name: Debug Event
         run: cat ${{ github.event_path }}
 
+      - run: pwd
+
       - name: Test docker
-        shell: docker run --rm sh -c '{0}'
+        shell: docker run --rm alpine sh -c '{0}'
         run: |
           echo "Hello World"
           ls -al
