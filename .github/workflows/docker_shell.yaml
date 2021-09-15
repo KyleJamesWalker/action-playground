@@ -16,10 +16,11 @@ jobs:
         run: cat ${{ github.event_path }}
 
       - id: extract_workspace
-        run: echo "::set-output name=workspace::${{ github.workspace }}"
+        run: echo "${{ github.workspace }}"
 
+      # Note: It looks like you can use the variable interpellation in the shell line (so the path must be hardcoded)
       - name: Test docker
-        shell: docker run --rm -v {0}:/run_cmd.sh -v ${{ steps.extract_workspace.outputs.workspace}}:/code alpine sh run_cmd.sh
+        shell: docker run --rm -v {0}:/run_cmd.sh -v /home/runner/work/action-playground/action-playground:/code alpine sh run_cmd.sh
         run: |
           # Test if we can run multiple commands
           echo "Hello World"
