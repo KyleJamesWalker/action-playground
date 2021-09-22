@@ -23,5 +23,5 @@ jobs:
         run: echo "${{ github.event.inputs.app_name }}"
 
       - name: Run on major or minor only
-        if: ${{ contains(['major', 'minor'], github.event.inputs.bump_version) }}
+        if: contains(['major', 'minor'], github.event.inputs.bump_version)
         run: echo "Hello World"
