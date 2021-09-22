@@ -23,5 +23,13 @@ jobs:
         run: echo "${{ github.event.inputs.app_name }}"
 
       - name: Run on major or minor only
-        if: contains(fromJson('["major", "minor"]'), github.event.inputs.bump_version)
+        if: contains(fromJson('["major", "minor"]'), github.event.inputs.bump-version)
+        run: echo "Hello World"
+
+      - name: Run on patch
+        if: github.event.inputs.bump-version == "patch"
+        run: echo "Hello World"
+
+      - name: Run on everything except skip
+        if: github.event.inputs.bump-version != "skip"
         run: echo "Hello World"
