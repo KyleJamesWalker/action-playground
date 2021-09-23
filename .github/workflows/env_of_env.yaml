@@ -13,8 +13,11 @@ jobs:
   # Super annoying hack to use env in the job's env block...
   workflow_envs:
     runs-on: ubuntu-latest
+    outputs:
+      foo: ${{ steps.extract.outputs.foo }}
     steps:
-      - run: echo "::set-output name=foo::${{ env.foo }}"
+      - id: extract
+        run: echo "::set-output name=foo::${{ env.foo }}"
 
   next_env:
     runs-on: ubuntu-latest
