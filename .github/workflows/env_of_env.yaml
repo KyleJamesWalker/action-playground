@@ -1,8 +1,5 @@
-# This script is used to test running commands within a docker container
-#
-# Test the run with gh cli:
-#
-#   gh workflow run env_of_env.yaml
+# Verify ways around the primary env block not being accessible at the job's env block
+# without copying it to every step block it would be needed in
 name: env_of_env
 
 on:
@@ -12,12 +9,21 @@ env:
   foo: bar
 
 jobs:
+
+  # Super annoying hack to use env in the job's env block...
+  envs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "::set-output name=foo::${{ env.foo }}"
+
   next_env:
     runs-on: ubuntu-latest
+    needs: [envs]
 
-    # This will fail because the env variable is not pulled in from line 11
-    # env:
-    #   bazbam: ${{ env.foo }}/bazbam
+    env:
+      # This will fail because the env variable is not pulled in from line 11
+      # bazbam: ${{ env.foo }}/bazbam
+      bazbam: ${{ needs.envs.outputs.foo }}/bazbam
 
     steps:
       - name: Debug Event
@@ -27,6 +33,7 @@ jobs:
         run: echo "${{ env.foo }}"
 
       - name: Debug bazbam
-        env:
-          bazbam: ${{ env.foo }}/bazbam
+        # This works, but it's not shared across steps...
+        # env:
+        #   bazbam: ${{ env.foo }}/bazbam
         run: echo "${{ env.bazbam }}"
