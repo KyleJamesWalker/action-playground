@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
 
     # This will fail because the env variable is not pulled in from line 11
-    env:
-      bazbam: ${{ env.foo }}/bazbam
+    # env:
+    #   bazbam: ${{ env.foo }}/bazbam
 
     steps:
       - name: Debug Event
@@ -27,4 +27,6 @@ jobs:
         run: echo "${{ env.foo }}"
 
       - name: Debug bazbam
+        env:
+          bazbam: ${{ env.foo }}/bazbam
         run: echo "${{ env.bazbam }}"
