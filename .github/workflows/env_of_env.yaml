@@ -1,0 +1,30 @@
+# This script is used to test running commands within a docker container
+#
+# Test the run with gh cli:
+#
+#   gh workflow run env_of_env.yaml
+name: env_of_env
+
+on:
+  workflow_dispatch:
+
+env:
+  foo: bar
+
+jobs:
+  next_env:
+    runs-on: ubuntu-latest
+
+    # This will fail because the env variable is not pulled in from line 11
+    env:
+      bazbam: ${{ env.foo }}/bazbam
+
+    steps:
+      - name: Debug Event
+        run: cat ${{ github.event_path }}
+
+      - name: Debug foo
+        run: echo "${{ env.foo }}"
+
+      - name: Debug bazbam
+        run: echo "${{ env.bazbam }}"
