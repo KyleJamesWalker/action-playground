@@ -11,19 +11,19 @@ env:
 jobs:
 
   # Super annoying hack to use env in the job's env block...
-  envs:
+  workflow_envs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "::set-output name=foo::${{ env.foo }}"
 
   next_env:
     runs-on: ubuntu-latest
-    needs: [envs]
+    needs: [workflow_envs]
 
     env:
       # This will fail because the env variable is not pulled in from line 11
       # bazbam: ${{ env.foo }}/bazbam
-      bazbam: ${{ needs.envs.outputs.foo }}/bazbam
+      bazbam: ${{ needs.workflow_envs.outputs.foo }}/bazbam
 
     steps:
       - name: Debug Event
@@ -31,6 +31,9 @@ jobs:
 
       - name: Debug foo
         run: echo "${{ env.foo }}"
+
+      - name: Debug needs
+        run: echo "${{ needs.workflow_envs.outputs.foo }}"
 
       - name: Debug bazbam
         # This works, but it's not shared across steps...
