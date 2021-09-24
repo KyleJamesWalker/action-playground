@@ -1,0 +1,17 @@
+# What happens when a cron is triggered and inputs exist in a dispatch
+name: crons_share
+
+on:
+  workflow_dispatch:
+    inputs:
+      app-name:
+        description: An app name of course!
+  schedule:
+    - cron:  '*/5 * * * *'
+
+jobs:
+  process_ecr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test the input
+        run: echo "${{ github.event.inputs.app-name }}"
