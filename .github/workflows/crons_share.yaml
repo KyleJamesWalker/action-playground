@@ -9,9 +9,13 @@ on:
   schedule:
     - cron:  '*/5 * * * *'
 
+env:
+  # If a default was needed you can do this
+  DEFAULT_APP_NAME: ''
+
 jobs:
   process_ecr:
     runs-on: ubuntu-latest
     steps:
       - name: Test the input
-        run: echo "${{ github.event.inputs.app-name }}"
+        run: echo "${{ github.event.inputs.app-name || env.DEFAULT_APP_NAME }}"
