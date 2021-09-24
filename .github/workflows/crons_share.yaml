@@ -6,8 +6,9 @@ on:
     inputs:
       app-name:
         description: An app name of course!
-  schedule:
-    - cron:  '*/5 * * * *'
+  # Turn this on when you want to test, I don't want to waste my free actions
+  # schedule:
+  #   - cron:  '*/5 * * * *'
 
 env:
   # If a default was needed you can do this
