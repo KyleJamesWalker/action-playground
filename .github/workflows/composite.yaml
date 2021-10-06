@@ -1,0 +1,46 @@
+# This script is used to test composite logic
+#
+# Test the run with gh cli:
+#
+#   gh workflow run composite
+name: composite
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump-version:
+        description: "Bump version request"
+        default: patch
+
+jobs:
+  docker_execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug Event
+        run: cat ${{ github.event_path }}
+
+      - name: Debug the input
+        run: echo "${{ github.event.inputs.app_name }}"
+
+      - name: Invoke composite action [major]
+        uses: KyleJamesWalker/action-playground@master
+        with:
+          bump-type: major
+
+      - name: Invoke composite action [minor]
+        uses: KyleJamesWalker/action-playground@master
+        with:
+          bump-type: minor
+
+      - name: Invoke composite action [patch]
+        uses: KyleJamesWalker/action-playground@master
+        with:
+          bump-type: patch
+
+      - name: Invoke composite action [skip]
+        uses: KyleJamesWalker/action-playground@master
+        with:
+          bump-type: skip
+
+      - name: Invoke composite action [default]
+        uses: KyleJamesWalker/action-playground@master

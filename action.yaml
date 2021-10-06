@@ -1,0 +1,30 @@
+inputs:
+  bump-type:
+    description: Example value that can be passed and checked against
+    default: patch
+
+runs:
+  using: "composite"
+  steps:
+      - name: Say hello
+        shell: bash
+        run: |
+          echo "Hello Everyone"
+
+      - name: Run on major or minor only
+        shell: bash
+        # if: contains(fromJson('["major", "minor"]'), github.event.inputs.bump-version)
+        run: |
+          echo "Hello major/minor"
+
+      - name: Run on patch
+        shell: bash
+        # if: github.event.inputs.bump-version == 'patch'
+        run: |
+          echo "Hello patch"
+
+      - name: Run on everything except skip
+        shell: bash
+        # if: github.event.inputs.bump-version != 'skip'
+        run: |
+          echo "Hello not skip"
