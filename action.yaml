@@ -32,4 +32,8 @@ runs:
       - name: Debug stuffs
         shell: bash
         run: |
-          echo "${{ contains(fromJson('["major", "minor"]'), github.event.inputs.bump-version) }}"
+          echo "${{ contains(fromJson('["major", "minor"]'), inputs.bump-type) }}"
+          echo "${{ inputs.bump-type == 'major' }}"
+          echo "${{ inputs.bump-type == 'minor' }}"
+          echo "${{ inputs.bump-type == 'patch' }}"
+          echo "${{ inputs.bump-type != 'skip' }}"
