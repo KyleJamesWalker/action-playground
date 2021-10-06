@@ -15,25 +15,22 @@ runs:
         shell: bash
         # if: contains(fromJson('["major", "minor"]'), github.event.inputs.bump-version)
         run: |
-          echo "Hello major/minor"
+          if [ "${{ contains(fromJson('["major", "minor"]'), inputs.bump-type) }}" = "true" ]; then
+            echo "Hello major/minor"
+          fi
 
       - name: Run on patch
         shell: bash
         # if: github.event.inputs.bump-version == 'patch'
         run: |
-          echo "Hello patch"
+          if [ "${{ inputs.bump-type == 'patch' }}" = "true" ]; then
+            echo "Hello patch"
+          fi
 
       - name: Run on everything except skip
         shell: bash
         # if: github.event.inputs.bump-version != 'skip'
         run: |
-          echo "Hello not skip"
-
-      - name: Debug stuffs
-        shell: bash
-        run: |
-          echo "${{ contains(fromJson('["major", "minor"]'), inputs.bump-type) }}"
-          echo "${{ inputs.bump-type == 'major' }}"
-          echo "${{ inputs.bump-type == 'minor' }}"
-          echo "${{ inputs.bump-type == 'patch' }}"
-          echo "${{ inputs.bump-type != 'skip' }}"
+          if [ "${{ inputs.bump-type != 'skip' }}" = "true" ]; then
+            echo "Hello not skip"
+          fi
