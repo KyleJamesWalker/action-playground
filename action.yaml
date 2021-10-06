@@ -28,3 +28,8 @@ runs:
         # if: github.event.inputs.bump-version != 'skip'
         run: |
           echo "Hello not skip"
+
+      - name: Debug stuffs
+        shell: bash
+        run: |
+          echo "${{ contains(fromJson('["major", "minor"]'), github.event.inputs.bump-version) }}"
