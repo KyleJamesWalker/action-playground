@@ -1,8 +1,8 @@
-# This script is used to test running commands within a docker container
+# This script is used to test how to use the contains function in the condition check
 #
 # Test the run with gh cli:
 #
-#   gh workflow run docker_shell
+#   gh workflow run contains
 name: contains
 
 on:

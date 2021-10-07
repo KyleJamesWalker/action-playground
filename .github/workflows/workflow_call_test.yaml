@@ -1,0 +1,22 @@
+on:
+  workflow_call:
+    inputs:
+      request-error:
+        description: Error the job when passed at true
+        required: true
+        type: bool
+    secrets:
+      token:
+        required: false
+
+jobs:
+  sub_call:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug Event
+        run: cat ${{ github.event_path }}
+
+      - name: Simple Message
+        run: |
+          echo ${{ github.event.inputs.request-error }}
+          echo "Hello world"

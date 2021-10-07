@@ -1,0 +1,28 @@
+# This script is used to test how to use the contains function in the condition check
+#
+# Test the run with gh cli:
+#
+#   gh workflow run trigger_call
+name: trigger_call
+
+on:
+  workflow_dispatch:
+    inputs:
+      request-error:
+        description: "Pass an error down"
+        default: false
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug Event
+        run: cat ${{ github.event_path }}
+
+      - name: Call on down
+        uses: KyleJamesWalker/action-playground/.github/workflows/workflow_call_test.yml@main
+        with:
+          request-error: ${{ github.event.inputs.request-error }}
+
+      - name: Final message
+        run: echo "Hello world"
