@@ -14,15 +14,6 @@ on:
 
 jobs:
   sample:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Debug Event
-        run: cat ${{ github.event_path }}
-
-      - name: Call on down
-        uses: KyleJamesWalker/action-playground/.github/workflows/workflow_call_test.yml@main
-        with:
-          request-error: ${{ github.event.inputs.request-error }}
-
-      - name: Final message
-        run: echo "Hello world"
+    uses: KyleJamesWalker/action-playground/.github/workflows/workflow_call_test.yml@main
+      with:
+        request-error: ${{ github.event.inputs.request-error }}
