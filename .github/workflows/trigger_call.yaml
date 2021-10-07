@@ -1,4 +1,4 @@
-# This script is used to test how to use the contains function in the condition check
+# This script is use to see how referencing a workflow call works
 #
 # Test the run with gh cli:
 #

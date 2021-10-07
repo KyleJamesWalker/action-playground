@@ -31,6 +31,6 @@ runs:
         shell: bash
         # if: github.event.inputs.bump-version != 'skip'
         run: |
-          if [ "${{ inputs.bump-type != 'skip' }}" = "true" ]; then
+          if [ "${{ inputs.bump-type }}" != "skip" ]; then
             echo "Hello not skip"
           fi
