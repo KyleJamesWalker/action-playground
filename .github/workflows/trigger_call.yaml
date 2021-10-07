@@ -15,5 +15,5 @@ on:
 jobs:
   sample:
     uses: KyleJamesWalker/action-playground/.github/workflows/workflow_call_test.yml@main
-      with:
-        request-error: ${{ github.event.inputs.request-error }}
+    with:
+      request-error: ${{ github.event.inputs.request-error }}
