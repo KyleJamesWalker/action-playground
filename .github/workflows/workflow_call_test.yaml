@@ -4,6 +4,7 @@ on:
       request-error:
         description: Error the job when passed at true
         required: true
+        type: boolean
     secrets:
       token:
         required: false
