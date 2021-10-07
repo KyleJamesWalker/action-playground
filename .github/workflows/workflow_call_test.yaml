@@ -18,5 +18,8 @@ jobs:
 
       - name: Simple Message
         run: |
-          echo ${{ inputs.request-error }}
-          echo "Hello world"
+          if [ "${{ inputs.request-error }}" = "true" ]; then
+            exit 1
+          else; then
+            echo "Hello world"
+          fi
