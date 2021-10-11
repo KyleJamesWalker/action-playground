@@ -18,6 +18,9 @@ jobs:
   simple_cron:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug Event
+        run: cat ${{ github.event_path }}
+
       - name: Test the input
         run: echo "${{ github.event.inputs.app-name || env.DEFAULT_APP_NAME }}"
 
