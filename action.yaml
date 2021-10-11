@@ -40,6 +40,6 @@ runs:
             echo "Hello not skip"
           fi
 
-    - id: random-number-generator
-      shell: bash
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+      - id: random-number-generator
+        shell: bash
+        run: echo "::set-output name=random-id::$(echo $RANDOM)"
