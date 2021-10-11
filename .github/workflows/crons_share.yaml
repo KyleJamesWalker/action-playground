@@ -33,6 +33,7 @@ jobs:
           gh --repo ${{ github.event.repository.clone_url }} pr view $PR_NUMBER
           gh --repo ${{ github.event.repository.clone_url }} pr view $PR_NUMBER | grep 'author:'
           gh --repo ${{ github.event.repository.clone_url }} pr view $PR_NUMBER | grep 'author:' | awk '{print $2}'
+          echo "name=author::$(gh --repo ${{ github.event.repository.clone_url }} pr view $(gh --repo ${{ github.event.repository.clone_url }} pr list -s merged | head -n1 | awk '{print $1}') | grep 'author:' | awk '{print $2}')"
           # PR_AUTHOR=$(gh --repo ${{ github.event.repository.clone_url }} pr view $PR_NUMBER | grep 'author:\t' | awk '{print $2}')
           # echo $PR_AUTHOR
           # # See the output
