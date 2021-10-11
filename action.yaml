@@ -3,6 +3,11 @@ inputs:
     description: Example value that can be passed and checked against
     default: patch
 
+outputs:
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+
 runs:
   using: "composite"
   steps:
@@ -34,3 +39,7 @@ runs:
           if [ "${{ inputs.bump-type }}" != "skip" ]; then
             echo "Hello not skip"
           fi
+
+    - id: random-number-generator
+      shell: bash
+      run: echo "::set-output name=random-id::$(echo $RANDOM)"
