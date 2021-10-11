@@ -28,9 +28,9 @@ jobs:
         id: get_author
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-          PR_NUMBER=$(gh pr --repo ${{ github.event.repository.clone_url }} list -s merged | head -n1 | awk '{print $1}')
+          PR_NUMBER=$(gh --repo ${{ github.event.repository.clone_url }} pr list -s merged | head -n1 | awk '{print $1}')
           echo $PR_NUMBER
-          PR_AUTHOR=$(gh pr view --repo ${{ github.event.repository.clone_url }} $PR_NUMBER | grep 'author:\t' | awk '{print $2}')
+          PR_AUTHOR=$(gh --repo ${{ github.event.repository.clone_url }} pr view  $PR_NUMBER | grep 'author:\t' | awk '{print $2}')
           echo $PR_AUTHOR
           # See the output
           echo "author::$PR_AUTHOR"
