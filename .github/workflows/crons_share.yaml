@@ -20,3 +20,12 @@ jobs:
     steps:
       - name: Test the input
         run: echo "${{ github.event.inputs.app-name || env.DEFAULT_APP_NAME }}"
+
+      - name: Get last PR author
+        id: get_author
+        run: |
+          echo $GITHUB_TOKEN | gh auth login --with-token
+          # See the output
+          echo "author::$(gh pr view --repo ${{ github.event.repository.clone_url }} $(gh pr --repo ${{ github.event.repository.clone_url }} list -s merged | head -n1 | awk '{print $1}') | grep 'author:\t' | awk '{print $2}')"
+          # Save the output
+          echo "::set-output name=author::$(gh pr view --repo ${{ github.event.repository.clone_url }} $(gh pr --repo ${{ github.event.repository.clone_url }} list -s merged | head -n1 | awk '{print $1}') | grep 'author:\t' | awk '{print $2}')"
