@@ -27,5 +27,7 @@ jobs:
       - name: Get last PR author
         id: get_author
         run: |
+          # Login to the gh cli tool
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
           # Add "::set-output " to start of the echo below to actually set the output
           echo "name=author::$(gh --repo ${{ github.event.repository.clone_url }} pr view $(gh --repo ${{ github.event.repository.clone_url }} pr list -s merged | head -n1 | awk '{print $1}') | grep 'author:' | awk '{print $2}')"
