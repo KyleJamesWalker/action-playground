@@ -6,11 +6,7 @@
 name: composite
 
 on:
-  workflow_dispatch:
-    inputs:
-      bump-version:
-        description: "Bump version request"
-        default: patch
+  workflow_dispatch: {}
 
 jobs:
   test_composite_conditionals:
@@ -18,9 +14,6 @@ jobs:
     steps:
       - name: Debug Event
         run: cat ${{ github.event_path }}
-
-      - name: Debug the input
-        run: echo "${{ github.event.inputs.app_name }}"
 
       - name: Invoke composite action [major]
         uses: KyleJamesWalker/action-playground@try-conditional-logic-in-composite-actions
