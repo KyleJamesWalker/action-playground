@@ -14,23 +14,23 @@ runs:
       - name: Say hello
         shell: bash
         run: |
-          echo "Hello Everyone bump-type=${{ github.event.inputs.bump-version }}"
+          echo "Hello Everyone bump-type=${{ inputs.bump-type }}"
 
       - name: Run on major or minor only
         shell: bash
-        if: contains(fromJson('["major", "minor"]'), github.event.inputs.bump-version)
+        if: contains(fromJson('["major", "minor"]'), inputs.bump-type)
         run: |
           echo "Hello major/minor"
 
       - name: Run on patch
         shell: bash
-        if: github.event.inputs.bump-version == 'patch'
+        if: inputs.bump-type == 'patch'
         run: |
           echo "Hello patch"
 
       - name: Run on everything except skip
         shell: bash
-        if: github.event.inputs.bump-version != 'skip'
+        if: inputs.bump-type != 'skip'
         run: |
           echo "Hello not skip"
 
