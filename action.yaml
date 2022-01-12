@@ -18,27 +18,21 @@ runs:
 
       - name: Run on major or minor only
         shell: bash
-        # if: contains(fromJson('["major", "minor"]'), github.event.inputs.bump-version)
+        if: contains(fromJson('["major", "minor"]'), github.event.inputs.bump-version)
         run: |
-          if [ "${{ contains(fromJson('["major", "minor"]'), inputs.bump-type) }}" = "true" ]; then
-            echo "Hello major/minor"
-          fi
+          echo "Hello major/minor"
 
       - name: Run on patch
         shell: bash
-        # if: github.event.inputs.bump-version == 'patch'
+        if: github.event.inputs.bump-version == 'patch'
         run: |
-          if [ "${{ inputs.bump-type == 'patch' }}" = "true" ]; then
-            echo "Hello patch"
-          fi
+          echo "Hello patch"
 
       - name: Run on everything except skip
         shell: bash
-        # if: github.event.inputs.bump-version != 'skip'
+        if: github.event.inputs.bump-version != 'skip'
         run: |
-          if [ "${{ inputs.bump-type }}" != "skip" ]; then
-            echo "Hello not skip"
-          fi
+          echo "Hello not skip"
 
       - id: random-number-generator
         shell: bash

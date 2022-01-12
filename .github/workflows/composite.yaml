@@ -23,28 +23,28 @@ jobs:
         run: echo "${{ github.event.inputs.app_name }}"
 
       - name: Invoke composite action [major]
-        uses: KyleJamesWalker/action-playground@master
+        uses: KyleJamesWalker/action-playground@try-conditional-logic-in-composite-actions
         with:
           bump-type: major
 
       - name: Invoke composite action [minor]
-        uses: KyleJamesWalker/action-playground@master
+        uses: KyleJamesWalker/action-playground@try-conditional-logic-in-composite-actions
         with:
           bump-type: minor
 
       - name: Invoke composite action [patch]
-        uses: KyleJamesWalker/action-playground@master
+        uses: KyleJamesWalker/action-playground@try-conditional-logic-in-composite-actions
         with:
           bump-type: patch
 
       - name: Invoke composite action [skip]
-        uses: KyleJamesWalker/action-playground@master
+        uses: KyleJamesWalker/action-playground@try-conditional-logic-in-composite-actions
         with:
           bump-type: skip
 
       - name: Invoke composite action [default]
         id: default-action
-        uses: KyleJamesWalker/action-playground@master
+        uses: KyleJamesWalker/action-playground@try-conditional-logic-in-composite-actions
 
       - name: Get the last random id
         run: echo "${{ steps.default-action.outputs.random-number }}"
