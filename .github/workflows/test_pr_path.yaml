@@ -1,0 +1,61 @@
+name: Test PR with path info
+
+on:
+  pull_request:
+    types: [edited, opened, synchronize, reopened]
+    branches: [master]
+
+jobs:
+
+  folder-changes:
+    runs-on: ubuntu-latest
+
+    outputs:
+      folders-changed-matrix-params: ${{ steps.folders.outputs.folders-changed-matrix-params }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Debug Event
+        run: cat ${{ github.event_path }}
+
+      - name: Login to Github CLI
+        run: echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+
+      - name: Scan for changes in project folders
+        id: folders
+        run: |
+          # Get the PR Number
+          PR_NUMBER=${{ github.event.number }}
+          # Build the matrix dict
+          matrix_params=$((
+            echo '{ "params" : '
+            gh pr view $PR_NUMBER --json files --jq '.files.[].path' | cut -d "/" -f1 | grep -v '[\\|\.]' | sort | uniq | jq  --raw-input . | jq --slurp . | jq '{"project": .[]}'  | jq --slurp .
+            echo '}'
+          ) | jq -c .)
+          # Verify the matrix dict
+          echo $matrix_params
+          # Save for usage
+          echo "::set-output name=folders-changed-matrix-params::$matrix_params"
+
+  echo-params:
+    needs: [folder-changes]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo outputs
+        run: echo ${{ needs.folder-changes.outputs.folders-changed-matrix-params }}
+
+
+  test:
+    needs: [folder-changes]
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: ${{ fromJson(needs.folder-changes.outputs.folders-changed-matrix-params ) }}
+
+    steps:
+      - name: Do something on the folder
+        run: |
+          echo "${{ matrix.params.project }}"
