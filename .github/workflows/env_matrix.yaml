@@ -1,0 +1,27 @@
+# Can I run a matrix with env
+name: env_matrix
+
+on:
+  workflow_dispatch:
+
+env:
+  app_name: 'super-cool'
+
+jobs:
+  simple_matrix:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        params:
+
+          - app_name: ${{ env.app_name }}-foo
+
+          - app_name: ${{ env.app_name }}-bar
+
+    steps:
+      - name: Debug Event
+        run: cat ${{ github.event_path }}
+
+      - name: Test the input
+        run: echo "${{ matrix.params.app_name }}"
