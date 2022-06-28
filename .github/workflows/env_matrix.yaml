@@ -24,4 +24,4 @@ jobs:
         run: cat ${{ github.event_path }}
 
       - name: Test the input
-        run: echo "${{ env.app_name }}-${{ matrix.params.app_name-suffix }}"
+        run: echo "${{ env.app_name }}-${{ matrix.params.app_name_suffix }}"
