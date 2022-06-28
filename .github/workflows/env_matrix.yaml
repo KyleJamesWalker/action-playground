@@ -15,13 +15,13 @@ jobs:
       matrix:
         params:
 
-          - app_name: ${{ env.app_name }}-foo
+          - app_name_suffix: foo
 
-          - app_name: ${{ env.app_name }}-bar
+          - app_name_suffix: bar
 
     steps:
       - name: Debug Event
         run: cat ${{ github.event_path }}
 
       - name: Test the input
-        run: echo "${{ matrix.params.app_name }}"
+        run: echo "${{ env.app_name }}-${{ matrix.params.app_name-suffix }}"
