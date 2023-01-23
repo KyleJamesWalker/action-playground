@@ -47,17 +47,18 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.11
 
       - name: Install requirements
         run: |
           pip install -U PyYAML
 
-      - name: Some JSON
+      - name: ENV from JSON
         run: |
-          echo ${{ fromJson(inputs.env-json).parameterName}}
-          echo ${{ fromJson(inputs.env-json).foo.bar}}
-          echo ${{ fromJson(inputs.env-json).baz}}
+          echo "FOO_BAR=${{ fromJson(inputs.env-json).foo_bar}}" >> $GITHUB_ENV
+
+      - name: Check ENV
+        run: echo $FOO_BAR ${{env.FOO_BAR}}
 
       - name: Simple python script
         shell: python
