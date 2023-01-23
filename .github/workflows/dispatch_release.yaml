@@ -29,6 +29,13 @@ on:
       tag:
         description: The semver image tag to use.
         required: true
+      # Reference: https://github.com/community/community/discussions/8774#discussioncomment-3747116
+      env-json:
+        description: Test workaround for the 10 input limit
+        required: false
+        default: '{}'
+        type: string
+
 
 jobs:
   python_execute:
@@ -45,6 +52,10 @@ jobs:
       - name: Install requirements
         run: |
           pip install -U PyYAML
+
+      - name: Some JSON
+        run: |
+          echo ${{ fromJson(inputs.env-json).parameterName}}
 
       - name: Simple python script
         shell: python

@@ -5,12 +5,6 @@ on:
         description: Error the job when passed at true
         required: true
         type: string
-      # Reference: https://github.com/community/community/discussions/8774#discussioncomment-3747116
-      env-json:
-        description: Test workaround for the 10 input limit
-        required: false
-        default: '{}'
-        type: string
     secrets:
       token:
         required: false
@@ -21,10 +15,6 @@ jobs:
     steps:
       - name: Debug Event
         run: cat ${{ github.event_path }}
-
-      - name: Some JSON
-        run: |
-          echo ${{ fromJson(inputs.env-json).parameterName}}
 
       - name: Simple Message
         run: |
